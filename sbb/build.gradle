@@ -1,0 +1,60 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'su.boot'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//devtools라이브러리 - 서버를 매번 재시작하지 않고도 수정한 내용이 반영된다.
+	
+	runtimeOnly 'com.h2database:h2'
+	//H2 데이터베이스
+	
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' 
+	//JPA 라이브러리 설치
+	
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+    //타임리프 템플릿
+    
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    //스프링 부트 벨리데이션 라이브러리 설치
+    
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    //스프링 시큐리치 설치
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    //타임리프 템플릿 엔진과 스프링 시큐리티 프레임워크를 함께 사용할 때 필요한 타임리프의 확장 기능
+    implementation 'org.commonmark:commonmark:0.21.0'
+    //미크다운 라이브러리 설치
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
