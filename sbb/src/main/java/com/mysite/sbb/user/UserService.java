@@ -20,7 +20,6 @@ public class UserService {
 		SiteUser user = new SiteUser();
 		user.setUsername(username);
 		user.setEmail(email);
-		user.setPassword(password);
 		user.setPassword(passwordEncoder.encode(password));
 		this.userRepository.save(user);
 		return user;
@@ -33,5 +32,17 @@ public class UserService {
 		} else {
 			throw new DataNotFoundException("siteuser not found");
 		}
+	}
+
+	public void updateUser(SiteUser user, String email, String password) {
+		user.setEmail(email);
+		if (password != null && !password.isEmpty()) {
+			user.setPassword(passwordEncoder.encode(password));
+		}
+		this.userRepository.save(user);
+	}
+
+	public void deleteUser(SiteUser user) {
+		this.userRepository.delete(user);
 	}
 }
